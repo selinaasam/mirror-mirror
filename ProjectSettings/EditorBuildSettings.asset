@@ -23,5 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/minigame-mirror.unity
     guid: 6b6b92aab94f3d54cbb1e3c43577ef87
+  - enabled: 1
+    path: Assets/Scenes/continued.unity
+    guid: f89d651cb531df5478e7dee67521da2f
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 50390f8d76bb93e44a96f54062ee2f1f, type: 2}

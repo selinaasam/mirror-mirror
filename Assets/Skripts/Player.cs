@@ -32,15 +32,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // Check if dialogue is playing
-        if (DialogueManager.GetInstance().dialogueIsPlaying)
+        // Check if DialogueManager is available
+        if (DialogueManager.GetInstance() != null && DialogueManager.GetInstance().dialogueIsPlaying)
         {
-            // Stop movement and animation if dialogue is active
             Move = 0;
             animator.SetFloat("Speed", 0);
-            footstepAudio.Stop(); // Stop footstep audio
-            rb.velocity = new Vector2(0, rb.velocity.y); // Prevent horizontal movement
-            return; // Exit the Update function early
+            footstepAudio.Stop();
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            return;
         }
 
         // Player movement controls

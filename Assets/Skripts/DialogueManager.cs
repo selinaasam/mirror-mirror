@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Ink.Runtime;
+using UnityEngine.SceneManagement; // Import Scene Management
 
 public class DialogueManager : MonoBehaviour
 {
@@ -19,12 +20,12 @@ public class DialogueManager : MonoBehaviour
     {
         if (instance != null && instance != this)
         {
-            Destroy(gameObject); // Destroy duplicate instance
+            Destroy(gameObject);
             return;
         }
 
         instance = this;
-        DontDestroyOnLoad(gameObject); // Keep this instance across scenes
+        DontDestroyOnLoad(gameObject);
     }
 
     public static DialogueManager GetInstance()
@@ -65,11 +66,14 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialogueField.SetActive(false);
         dialogueText.text = "";
+
+        // Load the next scene (change "NextSceneName" to your actual scene name)
+        SceneManager.LoadScene("continued");
     }
 
     private void ContinueStory()
     {
-        if (currentStory.canContinue)
+        if (currentStory != null && currentStory.canContinue)
         {
             dialogueText.text = currentStory.Continue();
         }
