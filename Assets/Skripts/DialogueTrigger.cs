@@ -8,45 +8,61 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField] private GameObject VisualCue;
 
     [Header("Ink JSON")]
-    [SerializeField] private TextAsset inkJSON; // Corrected spelling
+    [SerializeField] private TextAsset inkJSON;
 
     private bool playerInRange;
 
     private void Awake()
     {
         playerInRange = false;
-        VisualCue.SetActive(false); // Corrected method and variable name
+        if (VisualCue != null)
+        {
+            VisualCue.SetActive(false);
+        }
     }
 
     private void Update()
     {
         if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
         {
-            VisualCue.SetActive(true); // Corrected variable name
-            if (InputManager.GetInstance().GetInteractPressed())
+            if (VisualCue == null || !VisualCue.activeSelf)
             {
+                // If no visual cue, trigger dialogue automatically
                 DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
             }
+            else
+            {
+                VisualCue.SetActive(true);
+                if (InputManager.GetInstance().GetInteractPressed())
+                {
+                    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                }
+            }
         }
-        else
+        else if (VisualCue != null)
         {
-            VisualCue.SetActive(false); // Corrected variable name
+            VisualCue.SetActive(false);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.CompareTag("Player")) // Using CompareTag for efficiency
+        if (collider.gameObject.CompareTag("Player"))
         {
-            playerInRange = true; // Corrected assignment
+            playerInRange = true;
+            if (VisualCue == null || !VisualCue.activeSelf)
+            {
+                // Trigger dialogue immediately upon entering if no visual cue is present
+                DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.gameObject.CompareTag("Player")) // Using CompareTag for efficiency
+        if (collider.gameObject.CompareTag("Player"))
         {
-            playerInRange = false; // Corrected assignment
+            playerInRange = false;
         }
     }
 }
