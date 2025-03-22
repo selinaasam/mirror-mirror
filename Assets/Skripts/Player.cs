@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     public AudioSource footstepAudio; // Reference to AudioSource
     public AudioClip footstepClip; // Footstep sound clip
 
+    private bool isPaused = false; // Track if the game is paused
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -41,6 +43,23 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(0, rb.velocity.y);
             return;
         }
+
+        // Check for Escape key to pause/unpause
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            isPaused = !isPaused; // Toggle pause state
+            if (isPaused)
+            {
+                Time.timeScale = 0; // Pause the game
+                footstepAudio.Stop(); // Stop footstep sound
+            }
+            else
+            {
+                Time.timeScale = 1; // Resume the game
+            }
+        }
+
+        if (isPaused) return; // If paused, skip movement code
 
         // Player movement controls
         Move = Input.GetAxis("Horizontal");
