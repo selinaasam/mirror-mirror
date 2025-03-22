@@ -465,7 +465,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!224 &197368045
 RectTransform:
@@ -5063,7 +5063,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: a3b0a440f839eac47b30edeb924ab6e3, type: 3}
+  m_Texture: {fileID: 2800000, guid: b9c844d0e06a73244be092274cc0e474, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -6465,7 +6465,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &2047938809
 RectTransform:
