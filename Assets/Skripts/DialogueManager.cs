@@ -16,6 +16,8 @@ public class DialogueManager : MonoBehaviour
 
     private static DialogueManager instance;
 
+    private string currentInkFileName; // Store the name of the ink file
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -55,20 +57,20 @@ public class DialogueManager : MonoBehaviour
     public void EnterDialogueMode(TextAsset inkJSON)
     {
         currentStory = new Story(inkJSON.text);
+        currentInkFileName = inkJSON.name; // Store the name of the ink file
         dialogueIsPlaying = true;
         dialogueField.SetActive(true);
 
         ContinueStory();
     }
 
-    private void ExitDialogueMode()
+    private IEnumerator ExitDialogueMode()
     {
+        yield return new WaitForSeconds(0.2f);
+
         dialogueIsPlaying = false;
         dialogueField.SetActive(false);
         dialogueText.text = "";
-
-        // Load the next scene (change "NextSceneName" to your actual scene name)
-        SceneManager.LoadScene("continued");
     }
 
     private void ContinueStory()
@@ -76,6 +78,16 @@ public class DialogueManager : MonoBehaviour
         if (currentStory != null && currentStory.canContinue)
         {
             dialogueText.text = currentStory.Continue();
+        }
+        else if (currentInkFileName == "irene-city-1")
+        {
+            dialogueIsPlaying = false;
+            dialogueField.SetActive(false);
+            dialogueText.text = "";
+
+            // Load the next scene
+            SceneManager.LoadScene("continued");
+
         }
         else
         {
