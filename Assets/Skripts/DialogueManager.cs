@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Ink.Runtime;
-using UnityEngine.SceneManagement; // Import Scene Management
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -16,27 +16,34 @@ public class DialogueManager : MonoBehaviour
 
     private static DialogueManager instance;
 
-    private string currentInkFileName; // Store the name of the ink file
+    private string currentInkFileName;
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (instance == null)
         {
-            Destroy(gameObject);
-            return;
+            instance = this;
+            InitializeDialogueManager(); // Initialize the dialogue manager
+        }
+        else
+        {
+            gameObject.SetActive(false); // Disable this instance if another exists
+        }
+    }
+
+    private void InitializeDialogueManager()
+    {
+        // Find or instantiate dialogueField and dialogueText
+        if (dialogueField == null)
+        {
+            dialogueField = GameObject.Find("DialogueField"); // Ensure you have a GameObject named "DialogueField"
         }
 
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+        if (dialogueText == null)
+        {
+            dialogueText = dialogueField.GetComponentInChildren<TextMeshProUGUI>(); // Ensure the TextMeshProUGUI component is found
+        }
 
-    public static DialogueManager GetInstance()
-    {
-        return instance;
-    }
-
-    private void Start()
-    {
         dialogueIsPlaying = false;
         dialogueField.SetActive(false);
     }
@@ -57,7 +64,7 @@ public class DialogueManager : MonoBehaviour
     public void EnterDialogueMode(TextAsset inkJSON)
     {
         currentStory = new Story(inkJSON.text);
-        currentInkFileName = inkJSON.name; // Store the name of the ink file
+        currentInkFileName = inkJSON.name;
         dialogueIsPlaying = true;
         dialogueField.SetActive(true);
 
@@ -81,17 +88,27 @@ public class DialogueManager : MonoBehaviour
         }
         else if (currentInkFileName == "irene-city-1")
         {
-            dialogueIsPlaying = false;
-            dialogueField.SetActive(false);
-            dialogueText.text = "";
-
-            // Load the next scene
             SceneManager.LoadScene("continued");
-
         }
         else
         {
-            ExitDialogueMode();
+            StartCoroutine(ExitDialogueMode());
         }
     }
+
+    // Optional: Method to reset the dialogue manager if needed
+    public void ResetDialogue()
+    {
+        currentStory = null;
+        currentInkFileName = string.Empty;
+        dialogueIsPlaying = false;
+        dialogueField.SetActive(false);
+        dialogueText.text = "";
+    }
+
+    public static DialogueManager GetInstance()
+    {
+        return instance;
+    }
+
 }

@@ -3949,8 +3949,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press 'E' to enter
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4fe2fcedf73f8cf4990627f67eefa3e5, type: 2}
-  m_sharedMaterial: {fileID: 1304318173162423490, guid: 4fe2fcedf73f8cf4990627f67eefa3e5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 79772ae34ac902d42bdfc9692baaaf45, type: 2}
+  m_sharedMaterial: {fileID: 536899850072573017, guid: 79772ae34ac902d42bdfc9692baaaf45, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3974,7 +3974,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 57.7
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4699,7 +4699,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.9040604, y: 1.02896, z: -11.34}
+  m_LocalPosition: {x: -5.908304, y: 1.02899, z: -11.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9932,6 +9932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VisualCue: {fileID: 0}
   inkJSON: {fileID: 4900000, guid: aeedd6af40be8495ebf3abfebe5d0703, type: 3}
+  startAutomatically: 1
 --- !u!1 &2087109573
 GameObject:
   m_ObjectHideFlags: 0
