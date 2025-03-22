@@ -11,10 +11,12 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField] private TextAsset inkJSON;
 
     private bool playerInRange;
+    private bool hasBeenTriggered; // Track if this trigger has been activated
 
     private void Awake()
     {
         playerInRange = false;
+        hasBeenTriggered = false; // Initialize to false
         if (VisualCue != null)
         {
             VisualCue.SetActive(false);
@@ -23,19 +25,19 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
+        if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying && !hasBeenTriggered)
         {
             if (VisualCue == null || !VisualCue.activeSelf)
             {
-                // If no visual cue, trigger dialogue automatically
-                DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                // Trigger dialogue automatically if no visual cue
+                TriggerDialogue();
             }
             else
             {
                 VisualCue.SetActive(true);
                 if (InputManager.GetInstance().GetInteractPressed())
                 {
-                    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                    TriggerDialogue();
                 }
             }
         }
@@ -52,8 +54,8 @@ public class DialogueTrigger : MonoBehaviour
             playerInRange = true;
             if (VisualCue == null || !VisualCue.activeSelf)
             {
-                // Trigger dialogue immediately upon entering if no visual cue is present
-                DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                // Trigger dialogue immediately if no visual cue is present
+                TriggerDialogue();
             }
         }
     }
@@ -63,6 +65,23 @@ public class DialogueTrigger : MonoBehaviour
         if (collider.gameObject.CompareTag("Player"))
         {
             playerInRange = false;
+            if (VisualCue != null)
+            {
+                VisualCue.SetActive(false);
+            }
+        }
+    }
+
+    private void TriggerDialogue()
+    {
+        if (!hasBeenTriggered) // Check if the trigger has already been used
+        {
+            hasBeenTriggered = true; // Mark as triggered
+            DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+            if (VisualCue != null)
+            {
+                VisualCue.SetActive(false); // Optionally hide the visual cue after triggering
+            }
         }
     }
 }
