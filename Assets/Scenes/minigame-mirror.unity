@@ -4274,8 +4274,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02e9033135109ff4aae0f32305d6d79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popupPanel: {fileID: 0}
-  nextSceneName: 
+  popupPanel: {fileID: 197368041}
+  nextSceneName: room-kai-2
 --- !u!114 &1146058515
 MonoBehaviour:
   m_ObjectHideFlags: 0
