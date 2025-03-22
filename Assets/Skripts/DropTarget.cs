@@ -35,22 +35,25 @@ public class DropTarget : MonoBehaviour, IDropHandler
 
         if (draggedItem != null && CanDropItem(draggedItem))
         {
-            RectTransform draggedRectTransform = draggedItem.GetComponent<RectTransform>();
-            RectTransform dropTargetRectTransform = GetComponent<RectTransform>();
+            // Force release GUI control to prevent Unity GUI errors
+            UnityEngine.GUIUtility.hotControl = 0;
+            UnityEngine.GUIUtility.keyboardControl = 0;
 
-            // Berechne die neue Position und setze das Element
-            draggedRectTransform.anchoredPosition = dropTargetRectTransform.anchoredPosition +
-                new Vector2(0, GetListHeight(dropTargetRectTransform) + spacing * droppedItemCount);
-
-            droppedItemCount++;
-
-            // Aktualisiere Zähler für links und rechts
             if (name.StartsWith("Left"))
                 leftCount++;
             else if (name.StartsWith("Right"))
                 rightCount++;
 
+            RectTransform draggedRectTransform = draggedItem.GetComponent<RectTransform>();
+            RectTransform dropTargetRectTransform = GetComponent<RectTransform>();
+
+            draggedRectTransform.anchoredPosition = dropTargetRectTransform.anchoredPosition +
+                new Vector2(0, GetListHeight(dropTargetRectTransform) + spacing * droppedItemCount);
+
+            droppedItemCount++;
             draggedItem.DisableDragging();
+
+            UnityEngine.Debug.Log($"Left Count: {leftCount}, Right Count: {rightCount}");
 
             CheckCompletion();
         }
@@ -97,6 +100,23 @@ public class DropTarget : MonoBehaviour, IDropHandler
     IEnumerator ChangeScene(float delay)
     {
         yield return new WaitForSeconds(delay);
+
+        if (string.IsNullOrEmpty(nextSceneName))
+        {
+            UnityEngine.Debug.LogError("Error: nextSceneName is empty! Set it in the Inspector.");
+            yield break;
+        }
+
+        UnityEngine.Debug.Log($"Loading Scene: {nextSceneName}");
         SceneManager.LoadScene(nextSceneName);
     }
+
+    public void DisableDragging()
+    {
+        GetComponent<CanvasGroup>().blocksRaycasts = true;
+        UnityEngine.GUIUtility.hotControl = 0;
+        UnityEngine.GUIUtility.keyboardControl = 0;
+    }
+
+
 }
