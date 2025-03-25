@@ -481,8 +481,8 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 19572258593614760, guid: 808fe3c741c7a1447b7edaf03f48b2f0, type: 2}
     value: {fileID: 0}
-  - key: {fileID: 3801205600659422561, guid: 808fe3c741c7a1447b7edaf03f48b2f0, type: 2}
-    value: {fileID: 1526864246}
+  - key: {fileID: -6093163889583491961, guid: 808fe3c741c7a1447b7edaf03f48b2f0, type: 2}
+    value: {fileID: 882918707}
   m_ExposedReferences:
     m_References:
     - bad3902298c9e734d806c4e87afbfabb: {fileID: 624432103}
@@ -534,6 +534,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &882918707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 882918709}
+  - component: {fileID: 882918710}
+  m_Layer: 0
+  m_Name: MenueLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &882918709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882918707}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 420.47, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &882918710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882918707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 323fe2ceaa25042468e603429e523211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1273206636
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +590,7 @@ GameObject:
   - component: {fileID: 1273206639}
   - component: {fileID: 1273206638}
   - component: {fileID: 1273206637}
+  - component: {fileID: 1273206641}
   m_Layer: 5
   m_Name: end
   m_TagString: Untagged
@@ -635,47 +680,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1526864246
-GameObject:
+--- !u!320 &1273206641
+PlayableDirector:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1526864248}
-  - component: {fileID: 1526864247}
-  m_Layer: 0
-  m_Name: endgame
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1526864247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526864246}
+  m_GameObject: {fileID: 1273206636}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23821b85ad9d1854c9ebef88641cfac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1526864248
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526864246}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1194.5886, y: 570.2669, z: -27.141014}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 18c3a4680414b8d49bc56d1f79dfb41c, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 6994390271001332056, guid: 18c3a4680414b8d49bc56d1f79dfb41c, type: 2}
+    value: {fileID: 624432103}
+  - key: {fileID: -8091569745034784465, guid: 18c3a4680414b8d49bc56d1f79dfb41c, type: 2}
+    value: {fileID: 882918707}
+  m_ExposedReferences:
+    m_References: []
