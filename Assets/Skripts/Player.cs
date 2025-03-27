@@ -15,10 +15,10 @@ public class Player : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    public AudioSource footstepAudio; // Reference to AudioSource
-    public AudioClip footstepClip; // Footstep sound clip
+    public AudioSource footstepAudio;
+    public AudioClip footstepClip;
 
-    private bool isPaused = false; // Track if the game is paused
+    private float defaultSpeed; // Store original speed
 
     void Start()
     {
@@ -28,8 +28,11 @@ public class Player : MonoBehaviour
         if (footstepClip != null)
         {
             footstepAudio.clip = footstepClip;
-            footstepAudio.loop = true; // Enable looping
+            footstepAudio.loop = true;
         }
+
+        defaultSpeed = speed; // Store the default speed
+        GamePauseManager.RegisterPlayer(this); // Register player to pause manager
     }
 
     void Update()
@@ -44,22 +47,14 @@ public class Player : MonoBehaviour
             return;
         }
 
-        // Check for Escape key to pause/unpause
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (GamePauseManager.IsGamePaused())
         {
-            isPaused = !isPaused; // Toggle pause state
-            if (isPaused)
-            {
-                Time.timeScale = 0; // Pause the game
-                footstepAudio.Stop(); // Stop footstep sound
-            }
-            else
-            {
-                Time.timeScale = 1; // Resume the game
-            }
+            Move = 0;
+            animator.SetFloat("Speed", 0);
+            footstepAudio.Stop();
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            return; // Skip movement while paused
         }
-
-        if (isPaused) return; // If paused, skip movement code
 
         // Player movement controls
         Move = Input.GetAxis("Horizontal");
@@ -82,5 +77,15 @@ public class Player : MonoBehaviour
         {
             footstepAudio.Stop();
         }
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+
+    public void ResetSpeed()
+    {
+        speed = defaultSpeed;
     }
 }

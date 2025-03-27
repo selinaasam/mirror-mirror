@@ -3,51 +3,51 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     public GameObject inventoryUI;
-    private bool isPaused = false;
-    private PauseMenu pauseMenu; // Reference to PauseMenu
+    private bool isInventoryOpen = false;
+    private PauseMenu pauseMenu;
 
     void Start()
     {
         inventoryUI.SetActive(false);
-        pauseMenu = FindObjectOfType<PauseMenu>(); // Find PauseMenu in the scene
+        pauseMenu = FindObjectOfType<PauseMenu>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            if (isPaused)
+            if (isInventoryOpen)
             {
-                ResumeGame();
+                CloseInventory();
             }
             else
             {
-                // Close pause menu if it's open
                 if (pauseMenu != null && pauseMenu.IsPaused())
                 {
-                    pauseMenu.ResumeGame();
+                    pauseMenu.ClosePauseMenu();
+                    GamePauseManager.SwitchMenu(); // Keeps the game paused
                 }
-                PauseGame();
+                OpenInventory();
             }
         }
     }
 
-    public void PauseGame()
+    public void OpenInventory()
     {
         inventoryUI.SetActive(true);
-        Time.timeScale = 0f;
-        isPaused = true;
+        GamePauseManager.PauseGame();
+        isInventoryOpen = true;
     }
 
-    public void ResumeGame()
+    public void CloseInventory()
     {
         inventoryUI.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
+        GamePauseManager.ResumeGame();
+        isInventoryOpen = false;
     }
 
-    public bool IsPaused()
+    public bool IsInventoryOpen()
     {
-        return isPaused;
+        return isInventoryOpen;
     }
 }
