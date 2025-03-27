@@ -4,12 +4,12 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI;
     private bool isPaused = false;
-    private InventoryManager inventoryManager; // Reference to InventoryManager
+    private InventoryManager inventoryManager;
 
     void Start()
     {
         pauseMenuUI.SetActive(false);
-        inventoryManager = FindObjectOfType<InventoryManager>(); // Find InventoryManager in the scene
+        inventoryManager = FindObjectOfType<InventoryManager>();
     }
 
     void Update()
@@ -18,31 +18,31 @@ public class PauseMenu : MonoBehaviour
         {
             if (isPaused)
             {
-                ResumeGame();
+                ClosePauseMenu();
             }
             else
             {
-                // Close inventory if it's open
-                if (inventoryManager != null && inventoryManager.IsPaused())
+                if (inventoryManager != null && inventoryManager.IsInventoryOpen())
                 {
-                    inventoryManager.ResumeGame();
+                    inventoryManager.CloseInventory();
+                    GamePauseManager.SwitchMenu(); // Keeps the game paused
                 }
-                PauseGame();
+                OpenPauseMenu();
             }
         }
     }
 
-    public void PauseGame()
+    public void OpenPauseMenu()
     {
         pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
+        GamePauseManager.PauseGame();
         isPaused = true;
     }
 
-    public void ResumeGame()
+    public void ClosePauseMenu()
     {
         pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
+        GamePauseManager.ResumeGame();
         isPaused = false;
     }
 
